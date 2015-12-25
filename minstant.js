@@ -45,6 +45,7 @@ if (Meteor.isClient) {
       return Meteor.users.find();
     }
   })
+
  Template.available_user.helpers({
     getUsername:function(userId){
       user = Meteor.users.findOne({_id:userId});
@@ -70,6 +71,21 @@ if (Meteor.isClient) {
     }, 
   })
 
+  Template.chat_message.helpers({
+    getAvatar:function(userId){
+      return Meteor.users.findOne({_id:userId}).profile.avatar;
+    }, 
+    isMyUser:function(userId){
+      if (userId == Meteor.userId()){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  })
+
+
  Template.chat_page.events({
   // this event fires when the user sends a message on the chat page
   'submit .js-send-chat':function(event){
@@ -87,8 +103,7 @@ if (Meteor.isClient) {
       // (i.e. the user) into the database?? certainly not. 
       // push adds the message to the end of the array
       var userId = Meteor.userId();
-      var avatarSrc = Meteor.users.findOne({_id:userId}).profile.avatar;
-      msgs.push({text: event.target.chat.value, avatar: avatarSrc});
+      msgs.push({text: event.target.chat.value, user: userId});
       // reset the form
       event.target.chat.value = "";
       // put the messages array onto the chat object

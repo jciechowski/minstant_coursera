@@ -48,10 +48,10 @@
             </div>
             {{else}}
             <a href="/chat/{{_id}}">
-				{{getUsername _id}}
-				<br/>
-				<img src="{{profile.avatar}}" class="avatar_img">
-			</a> {{/if}}
+                {{getUsername _id}}
+                <br/>
+                <img src="{{profile.avatar}}" class="avatar_img">
+            </a> {{/if}}
         </div>
     </div>
 </template>
@@ -76,6 +76,10 @@
 </template>
 <!-- simple template that displays a message -->
 <template name="chat_message">
-    <img src="/{{avatar}}" class="avatar_img">: {{text}}
-    <br/>
+    {{#if isMyUser user}}
+    <img src="/{{getAvatar user}}" class="avatar_img">: {{text}}
+    <br/> {{else}}
+    <span class="right">
+    <img src="/{{getAvatar user}}" class="avatar_img]">: {{text}}
+    <br/> </span>{{/if}}
 </template>
