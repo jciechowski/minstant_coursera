@@ -9,7 +9,10 @@
 	height:75px;
 }
 
-.right {
-    text-align: right;
-	height:75px;
+.incoming {
+    font-style: italic;
+}
+
+.highlight {
+	font-weight: bold;
 }

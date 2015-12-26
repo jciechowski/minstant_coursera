@@ -43,6 +43,14 @@ if (Meteor.isClient) {
   Template.available_user_list.helpers({
     users:function(){
       return Meteor.users.find();
+    },
+    hasActiveSession:function(otherUserId){
+      var userId = Meteor.userId();
+      var activeSessions = Chats.find({user1Id:otherUserId, user2Id: userId});
+      console.log(userId + " " + otherUserId);
+      if(activeSessions.count() > 0) {
+          return true;
+      }
     }
   })
 

@@ -34,7 +34,13 @@
 <template name="available_user_list">
     <h2>Choose someone to chat with:</h2>
     <div class="row">
-        {{#each users}} {{> available_user}} {{/each}}
+        {{#each users}} 
+            {{#if hasActiveSession _id}}
+                <span class="highlight">{{> available_user}}</span>
+            {{else}} 
+                {{> available_user}}
+            {{/if}}
+        {{/each}}
     </div>
 </template>
 <!-- display an individual user -->
@@ -79,7 +85,6 @@
     {{#if isMyUser user}}
     <img src="/{{getAvatar user}}" class="avatar_img">: {{text}}
     <br/> {{else}}
-    <span class="right">
-    <img src="/{{getAvatar user}}" class="avatar_img]">: {{text}}
-    <br/> </span>{{/if}}
+    <img src="/{{getAvatar user}}" class="avatar_img">: <span class="incoming">{{text}}</span>
+    <br/>{{/if}}
 </template>
